@@ -1,1 +1,28 @@
 # Recurrent-Multi-Frame-Deraining
+## Recurrent Multi-Frame Deraining: Combining Physics Guidance and Adversarial Learning (Submitted to TPAMI)
+
+[Wenhan Yang](https://flyywh.github.io), [Robby T. Tan](https://tanrobby.github.io), [Jiashi Feng](https://sites.google.com/site/jshfeng), [Shiqi Wang](https://www.cs.cityu.edu.hk/~shiqwang/), and [Jiaying Liu](http://www.icst.pku.edu.cn/struct/people/liujiaying.html)
+
+[[Paper Link]](TBD) [[Project Page]](https://github.com/flyywh/Recurrent-Multi-Frame-Deraining)
+
+### Abstract
+
+Existing video rain removal methods mainly focus on rain streak removal and are solely trained based on the synthetic data, which neglect more complex degradation factors, e.g. rain accumulation, and the prior knowledge in real rain data. Thus, in this paper, we build a more comprehensive rain model with several degradation factors and construct a novel two-stage video rain removal method that combines the power of synthetic videos and real data. Specifically, a novel two-stage progressive network is proposed:  recovery guided by a physics model, and further restoration by adversarial learning. The first stage performs an inverse recovery process guided by our proposed rain  model. An initially estimated background frame is obtained based on the input rain frame. The second stage employs adversarial learning to refine the result, i.e. recovering the overall color and illumination distributions of the frame, the background details that are failed to be recovered in the first stage, and removing the artifacts generated in the first stage. Furthermore, we also introduce a more comprehensive rain model that includes degradation factors, e.g. occlusion and rain accumulation, which appear in real scenes yet ignored by existing methods. This model, which generates more realistic rain images, will train and evaluate our models better. Extensive evaluations on synthetic and real videos show the effectiveness of our method in comparisons to the state-of-the-art methods.
+
+<img src="teaser/teaser.png" >
+
+
+## Prerequisites
+- Linux or macOS
+- Python 3
+- NVIDIA GPU + CUDA cuDNN
+- PyTorch 0.4
+
+## Datasets
+- Proposed Training set: 
+- Proposed Testing set: 
+
+## Results
+- Proposed Testing set: 
+- Real videos:
+
