@@ -1,0 +1,1 @@
+CUDA_VISIBLE_DEVICES=1 python train_video_rain.py -datasets_tasks W3_D1_C1_I1_sh_0512_full_skip_s2_sgan_tv -train_epoch_size 100
