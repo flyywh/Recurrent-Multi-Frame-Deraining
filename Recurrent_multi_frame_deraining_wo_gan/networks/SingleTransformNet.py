@@ -1,0 +1,109 @@
+## torch lib
+import torch
+import torch.nn as nn
+import torch.nn.init as init
+
+from networks.ConvLSTM import ConvLSTM
+
+class SingleTransformNet(nn.Module):
+
+    def __init__(self, opts, nc_in, nc_out, last_bias=0):
+        super(SingleTransformNet, self).__init__()
+
+        self.blocks = opts.blocks
+        self.epoch = 0
+        nf = opts.nf
+        #use_bias = (opts.norm == "IN")
+        use_bias = True
+        opts.norm = "None"
+        
+        ## convolution layers
+        self.conv1 = ConvLayer(3 , nf * 2, kernel_size=3, stride=1, bias=use_bias, norm=opts.norm) ## input: P_t, O_t-1
+        self.conv2 = ConvLayer(nf * 2, nf * 2, kernel_size=3, stride=1, bias=use_bias, norm=opts.norm)
+        
+        # Residual blocks
+        self.ResBlocks = nn.ModuleList()
+        for b in range(self.blocks):
+            self.ResBlocks.append(ResidualBlock(nf * 2, bias=use_bias, norm=opts.norm))
+
+        self.conv3 = ConvLayer(nf * 2, nf * 2, kernel_size=3, stride=1, bias=use_bias, norm=opts.norm) ## input: P_t, O_t-1
+        self.conv4 = ConvLayer(nf * 2, 3, kernel_size=3, stride=1, bias=use_bias, norm=opts.norm, last_bias=last_bias)
+
+        self.relu = nn.LeakyReLU(negative_slope=0.2, inplace=True)
+
+        # self.relu = nn.ReLU(inplace=True)
+
+    def forward(self, X):
+        
+        E1 = self.relu(self.conv1(X))
+        E2 = self.relu(self.conv2(E1))
+        
+        RB = E2
+        for b in range(self.blocks):
+            RB = self.ResBlocks[b](RB)
+
+        D1 = self.relu(self.conv3(RB))
+        D2 = self.conv4(D1)
+
+        return D2
+
+class ConvLayer(nn.Module):
+    def __init__(self, in_channels, out_channels, kernel_size, stride, norm=None, bias=True, last_bias=0):
+        super(ConvLayer, self).__init__()
+
+        padding = kernel_size // 2
+        self.conv2d = nn.Conv2d(in_channels, out_channels, kernel_size, stride, padding, bias=bias)
+        if last_bias!=0:
+            init.constant(self.conv2d.weight, 0)
+            init.constant(self.conv2d.bias, last_bias)
+
+    def forward(self, x):
+
+        out = self.conv2d(x)
+
+        return out
+
+
+class UpsampleConvLayer(nn.Module):
+    
+    def __init__(self, in_channels, out_channels, kernel_size, stride, upsample=None, norm=None, bias=True):
+        super(UpsampleConvLayer, self).__init__()
+
+        self.upsample = upsample
+
+        if upsample:
+            self.upsample_layer = nn.Upsample(scale_factor=upsample, mode='nearest')
+
+        reflection_padding = kernel_size // 2
+        self.reflection_pad = nn.ReflectionPad2d(reflection_padding)
+        self.conv2d = nn.Conv2d(in_channels, out_channels, kernel_size, stride, bias=bias)
+
+    def forward(self, x):
+
+        x_in = x
+        if self.upsample:
+            x_in = self.upsample_layer(x_in)
+        out = self.reflection_pad(x_in)
+        out = self.conv2d(out)
+
+        return out
+
+class ResidualBlock(nn.Module):
+    
+    def __init__(self, channels, norm=None, bias=True):
+        super(ResidualBlock, self).__init__()
+        self.conv1  = ConvLayer(channels, channels, kernel_size=3, stride=1, bias=bias, norm=norm)
+        self.conv2  = ConvLayer(channels, channels, kernel_size=3, stride=1, bias=bias, norm=norm)
+        self.relu   = nn.LeakyReLU(negative_slope=0.2, inplace=True)
+        # self.relu = nn.ReLU(inplace=True)
+
+    def forward(self, x):
+
+        input = x
+        out = self.relu(self.conv1(x))
+        out = self.conv2(out)
+        out = out + input
+
+        return out
+
+
