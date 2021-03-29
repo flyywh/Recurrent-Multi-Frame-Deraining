@@ -36,3 +36,5 @@ Existing video rain removal methods mainly focus on rain streak removal and are 
 ## Results
 - Proposed Testing set: [Baiduyun(code: 7uzp)](https://pan.baidu.com/s/1sYYVZYpGAhJcnp-ZhYgEXQ)
 - Real videos: [Baiduyun(code: gl5r)](https://pan.baidu.com/s/12ajZ9Mb2jB5J7_TWU3XHug)
+- Video supplementary material: [Baiduyun(code: opfa)](https://pan.baidu.com/s/1OrOXcUOPH5zHRqD6lDDG9Q)
+
