@@ -1,5 +1,5 @@
 # Recurrent-Multi-Frame-Deraining
-## Recurrent Multi-Frame Deraining: Combining Physics Guidance and Adversarial Learning (Submitted to TPAMI)
+## Recurrent Multi-Frame Deraining: Combining Physics Guidance and Adversarial Learning (Accepted by TPAMI)
 
 [Wenhan Yang](https://flyywh.github.io), [Robby T. Tan](https://tanrobby.github.io), [Jiashi Feng](https://sites.google.com/site/jshfeng), [Shiqi Wang](https://www.cs.cityu.edu.hk/~shiqwang/), and [Jiaying Liu](http://www.icst.pku.edu.cn/struct/people/liujiaying.html)
 
@@ -39,3 +39,6 @@ Existing video rain removal methods mainly focus on rain streak removal and are 
 - Real videos: [Baiduyun(code: gl5r)](https://pan.baidu.com/s/12ajZ9Mb2jB5J7_TWU3XHug) [Google Drive](https://drive.google.com/file/d/1TFsM3jj6nvp60gVUD_YvMD4MNyO3HN1L/view?usp=sharing)
 - Video supplementary material: [Baiduyun(code: opfa)](https://pan.baidu.com/s/1OrOXcUOPH5zHRqD6lDDG9Q) [Google Drive](https://drive.google.com/file/d/1VwrbtiK9Rri2GqZQuUrpUGpZesDddr9z/view?usp=sharing)
 
+## Pretrained Models
+ - Models with GAN: [Baiduyun(code: vf31)](https://pan.baidu.com/s/1l1V-oB9-wZj9CjL-uhq8YA) [Dropbox](https://www.dropbox.com/sh/l2pon1ev9kaavts/AAB6Qn6q8pCgvPNX64dybu_oa?dl=0)
+ - Models without GAN: [Baiduyun(code: qaiq)](https://pan.baidu.com/s/1kRYLU7WVeXp_1L-xErPyhQ) [Dropbox](https://www.dropbox.com/sh/4412tcx17qk6t4l/AADXjaWHeAYoRSXCI4feeLc2a?dl=0)
